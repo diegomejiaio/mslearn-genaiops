@@ -25,7 +25,7 @@ To complete the tasks in this exercise, you need:
 - Visual Studio Code
 - Azure subscription with Microsoft Foundry access
 - Git and [GitHub](https://github.com) account
-- Python 3.9 or later
+- Python 3.11 or later
 - Azure CLI and Azure Developer CLI (azd) installed
 
 > **Tip**: If you haven't installed these prerequisites yet, see [Lab 00: Prerequisites](00-prerequisites.md) for installation instructions and links.
@@ -122,17 +122,10 @@ Now you'll use the Azure Developer CLI to deploy all required Azure resources.
 
 With your Azure resources deployed, install the required Python packages.
 
-1. In the VS Code terminal, create and activate a virtual environment:
+1. In the VS Code terminal, create the project environment and install the locked dependencies:
 
     ```powershell
-    python -m venv .venv
-    .venv\Scripts\Activate.ps1
-    ```
-
-1. Install the required dependencies:
-
-    ```powershell
-    python -m pip install -r requirements.txt
+    uv sync --frozen
     ```
 
     This installs necessary dependencies including:
@@ -251,7 +244,7 @@ The baseline provides:
 1. Deploy the baseline agent:
 
     ```powershell
-    python src/agents/trail_guide_agent/trail_guide_agent.py
+    uv run --frozen python src/agents/trail_guide_agent/trail_guide_agent.py
     ```
 
     This creates the "trail-guide-agent" with your v3 prompt.
@@ -261,7 +254,7 @@ The baseline provides:
 1. Run batch tests to capture baseline responses:
 
     ```powershell
-    python src/tests/run_batch_tests.py baseline
+    uv run --frozen python src/tests/run_batch_tests.py baseline
     ```
 
     This tests all 5 prompts and saves results to `experiments/baseline/agent-responses.json`.
@@ -380,7 +373,7 @@ Deploy the agent with the v4 prompt and capture responses from all test prompts.
 1. Create/update the agent version from the repository root:
 
     ```powershell
-    python src/agents/trail_guide_agent/trail_guide_agent.py
+    uv run --frozen python src/agents/trail_guide_agent/trail_guide_agent.py
     ```
 
     Expected output:
@@ -391,7 +384,7 @@ Deploy the agent with the v4 prompt and capture responses from all test prompts.
 1. Run the batch test script to test with all prompts:
 
     ```powershell
-    python src/tests/run_batch_tests.py optimized-concise
+    uv run --frozen python src/tests/run_batch_tests.py optimized-concise
     ```
 
     The script will:
@@ -517,13 +510,13 @@ Determine if an alternate lower-cost model available in your region can maintain
 1. Deploy the agent with the alternate model:
 
     ```powershell
-    python src/agents/trail_guide_agent/trail_guide_agent.py
+    uv run --frozen python src/agents/trail_guide_agent/trail_guide_agent.py
     ```
 
 1. Run batch tests with the same test prompts:
 
     ```powershell
-    python src/tests/run_batch_tests.py alternate-model
+    uv run --frozen python src/tests/run_batch_tests.py alternate-model
     ```
 
 1. Create your evaluation CSV at `experiments/alternate-model/evaluation.csv`:

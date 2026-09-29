@@ -31,7 +31,7 @@ To complete the tasks in this exercise, you need:
 - Visual Studio Code
 - Azure subscription with Microsoft Foundry access
 - Git and [GitHub](https://github.com) account
-- Python 3.9 or later
+- Python 3.11 or later
 - Azure CLI and Azure Developer CLI (azd) installed
 
 > **Tip**: If you haven't installed these prerequisites yet, see [Lab 00: Prerequisites](00-prerequisites.md) for installation instructions and links.
@@ -171,25 +171,10 @@ Now you'll use the Azure Developer CLI to deploy all required Azure resources.
 
 With your Azure resources deployed, install the required Python packages.
 
-1. In the VS Code terminal, create and activate a virtual environment:
+1. In the VS Code terminal, create the project environment and install the locked dependencies:
 
     ```powershell
-    python -m venv .venv
-    .venv\Scripts\Activate.ps1
-    ```
-
-1. Add the virtual environment to `.gitignore`.
-
-    The repository's `.gitignore` already covers `.env` and `.azure/`, but not `.venv/`, so a later `git add .` would commit the whole virtual environment:
-
-    ```powershell
-    Add-Content .gitignore "`n# Local Python environment`n.venv/`n__pycache__/"
-    ```
-
-1. Install the required dependencies:
-
-    ```powershell
-    python -m pip install -r requirements.txt
+    uv sync --frozen
     ```
 
     This installs necessary dependencies including:
@@ -318,7 +303,7 @@ Execute the complete evaluation pipeline with one command.
     Run the evaluation script to execute the complete evaluation pipeline:
 
     ```powershell
-    python src/evaluators/evaluate_agent.py
+    uv run --frozen python src/evaluators/evaluate_agent.py
     ```
 
     Expected output:

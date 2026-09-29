@@ -21,7 +21,7 @@ In this exercise, you'll use Application Insights and distributed tracing to obs
 You'll run the same five test prompts against prompt versions v1, v2, and v3, then analyze the results from two angles:
 
 - **Azure Monitor**: Aggregated token usage and latency metrics across versions
-- **Trace tree (local)**: A nested span tree per version from `python src/tests/check_traces.py`, with per-prompt timing and token attributes
+- **Trace tree (local)**: A nested span tree per version from `uv run --frozen python src/tests/check_traces.py`, with per-prompt timing and token attributes
 
 ## Set up the environment
 
@@ -30,7 +30,7 @@ To complete the tasks in this exercise, you need:
 - Visual Studio Code
 - Azure subscription with Microsoft Foundry access
 - Git and [GitHub](https://github.com) account
-- Python 3.9 or later
+- Python 3.11 or later
 - Azure CLI and Azure Developer CLI (azd) installed
 
 > **Tip**: If you haven't installed these prerequisites yet, see [Lab 00: Prerequisites](00-prerequisites.md) for installation instructions and links.
@@ -129,17 +129,10 @@ Now you'll use the Azure Developer CLI to deploy all required Azure resources.
 
 With your Azure resources deployed, install the required Python packages.
 
-1. In the VS Code terminal, create and activate a virtual environment:
+1. In the VS Code terminal, create the project environment and install the locked dependencies:
 
     ```powershell
-    python -m venv .venv
-    .venv\Scripts\Activate.ps1
-    ```
-
-1. Install the required dependencies:
-
-    ```powershell
-    python -m pip install -r requirements.txt
+    uv sync --frozen
     ```
 
     This installs all required packages, including:
@@ -187,7 +180,7 @@ Before running anything, take a moment to review what `src/tests/run_monitoring.
 1. In the VS Code terminal, run the script:
 
     ```powershell
-    python src/tests/run_monitoring.py
+    uv run --frozen python src/tests/run_monitoring.py
     ```
 
 1. Watch the terminal output as the script progresses through each version. For each test prompt you'll see:
@@ -207,7 +200,7 @@ Before running anything, take a moment to review what `src/tests/run_monitoring.
     Run:
 
     ```powershell
-    python src/tests/check_traces.py
+    uv run --frozen python src/tests/check_traces.py
     ```
 
     You should see one trace per prompt version, with three levels:
@@ -256,7 +249,7 @@ Focus on the **token usage** metrics and compare the three prompt versions:
 
 ### Compare the individual interactions
 
-Use the output of `python src/tests/check_traces.py` to compare prompt versions.
+Use the output of `uv run --frozen python src/tests/check_traces.py` to compare prompt versions.
 
 1. For the same test name (for example, `v1_trail-difficulty` vs `v3_trail-difficulty`), compare:
     - **Duration** (shown in milliseconds)
@@ -278,7 +271,7 @@ The `check_traces.py` output gives you the full span tree for each version run â
 1. Run the trace viewer script:
 
     ```powershell
-    python src/tests/check_traces.py
+    uv run --frozen python src/tests/check_traces.py
     ```
 
 1. Locate the root spans: `trail_guide_v1`, `trail_guide_v2`, and `trail_guide_v3`.
@@ -327,10 +320,10 @@ If you completed [Lab 03: Design and optimize prompts](03-design-optimize-prompt
 1. Run the script again:
 
     ```powershell
-    python src/tests/run_monitoring.py
+    uv run --frozen python src/tests/run_monitoring.py
     ```
 
-1. Run `python src/tests/check_traces.py` again and compare the new `trail_guide_v4_optimized_concise` span tree against `trail_guide_v3`.
+1. Run `uv run --frozen python src/tests/check_traces.py` again and compare the new `trail_guide_v4_optimized_concise` span tree against `trail_guide_v3`.
 
     - Does the token reduction you measured in evaluation hold up at runtime?
     - Is there a latency improvement as well?

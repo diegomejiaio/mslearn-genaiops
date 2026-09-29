@@ -129,17 +129,10 @@ You'll use the Azure Developer CLI to deploy all required Azure resources using 
 
 Install the required Python packages to work with Microsoft Foundry in your applications.
 
-1. In the VS Code terminal, create and activate a virtual environment:
+1. In the VS Code terminal, create the project environment and install the locked dependencies:
 
     ```powershell
-    python -m venv .venv
-    .venv/Scripts/Activate.ps1
-    ```
-
-1. Install the required dependencies:
-
-    ```powershell
-    python -m pip install -r requirements.txt
+    uv sync --frozen
     ```
 
     This installs all necessary dependencies including:
@@ -177,7 +170,7 @@ Deploy the initial version of the Trail Guide Agent to Microsoft Foundry.
 1. Run the agent creation script:
 
     ```powershell
-    python trail_guide_agent.py
+    uv run --frozen python trail_guide_agent.py
     ```
 
     You should see output confirming the agent was created:
@@ -199,7 +192,7 @@ Interact with your deployed agent from the terminal to verify it's working corre
 1. Run the interactive test script:
 
     ```powershell
-    python src/tests/interact_with_agent.py
+    uv run --frozen python src/tests/interact_with_agent.py
     ```
 
 1. When prompted, ask the agent a question about hiking, for example:
@@ -257,4 +250,3 @@ This is a stretch exercise designed to help you understand different approaches 
 ## Where to find other labs
 
 You can explore additional labs and exercises in the [Microsoft Foundry Learning Portal](https://ai.azure.com) or refer to the course's **lab section** for other available activities.
-

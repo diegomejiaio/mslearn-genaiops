@@ -158,13 +158,12 @@ The educational goal is for students to:
    - Estimated time: 5-10 minutes (automated deployment)
 
 5. **Set up Python environment**
-   - Create Python virtual environment: `python -m venv venv`
-   - Activate virtual environment
-   - Install dependencies: `pip install -r requirements.txt`
+   - Install Python 3.11+ and uv
+   - Create the environment and install locked dependencies: `uv sync --frozen`
 
 6. **Run the agent**
    - Navigate to `src/agents/trail_guide_agent/`
-   - Run: `python trail_guide_agent.py`
+   - Run: `uv run --frozen python trail_guide_agent.py`
    - Interact with the agent via CLI
 
 **Why this approach:**
@@ -199,7 +198,8 @@ The educational goal is for students to:
    - Handle exit commands and errors gracefully
 
 3. **Configuration Files**
-   - `requirements.txt`: Python dependencies
+   - `pyproject.toml`: Project metadata and Python dependency declarations
+   - `uv.lock`: Reproducible dependency versions
      - `azure-ai-projects` (latest)
      - `azure-identity`
      - `python-dotenv`

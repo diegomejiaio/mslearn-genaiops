@@ -40,7 +40,7 @@ Visual Studio Code is the primary code editor used throughout all labs.
 - **Azure Tools**: [Azure Tools extension pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-node-azure-pack)
 - **GitHub**: [GitHub Pull Requests and Issues](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
 
-### Python 3.9 or later
+### Python 3.11 or later
 
 Python is used for all agent development and scripting in the labs.
 
@@ -49,10 +49,20 @@ Python is used for all agent development and scripting in the labs.
 - **Verify installation**:
   ```bash
   python --version
-  # Should show Python 3.9 or later
+  # Should show Python 3.11 or later
   ```
 
 > **Tip**: On macOS and Linux, you may need to use `python3` instead of `python`.
+
+### uv
+
+uv manages the Python environment and locked dependencies used by the labs.
+
+- **Installation guide**: [Install uv](https://docs.astral.sh/uv/getting-started/installation/)
+- **Verify installation**:
+  ```bash
+  uv --version
+  ```
 
 ### Git
 
@@ -121,6 +131,9 @@ code --version
 # Check Python
 python --version
 
+# Check uv
+uv --version
+
 # Check Git
 git --version
 
@@ -162,6 +175,10 @@ Both commands will open a browser window for authentication. Sign in with your A
 - Verify Python is in your system PATH
 - Try using `python3` instead of `python`
 - Reinstall Python and check "Add Python to PATH" option
+
+**uv command not found**:
+- Install uv by following the [official installation guide](https://docs.astral.sh/uv/getting-started/installation/)
+- Restart your terminal and run `uv --version`
 
 **Azure CLI authentication fails**:
 - Clear cached credentials: `az account clear`

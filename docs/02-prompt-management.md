@@ -25,7 +25,7 @@ To complete the tasks in this exercise, you need:
 - Visual Studio Code
 - Azure subscription with Microsoft Foundry access
 - Git and [GitHub](https://github.com) account
-- Python 3.9 or later
+- Python 3.11 or later
 - Azure CLI and Azure Developer CLI (azd) installed
 
 All steps in this lab will be performed using Visual Studio Code and its integrated terminal.
@@ -131,17 +131,10 @@ Now you'll use the Azure Developer CLI to deploy all required Azure resources.
 
 With your Azure resources deployed, install the required Python packages to work with Microsoft Foundry.
 
-1. In the VS Code terminal, create and activate a virtual environment:
+1. In the VS Code terminal, create the project environment and install the locked dependencies:
 
     ```powershell
-    python -m venv .venv
-    .venv/Scripts/Activate.ps1
-    ```
-
-1. Install the required dependencies:
-
-    ```powershell
-    python -m pip install -r requirements.txt
+    uv sync --frozen
     ```
 
     This installs all necessary dependencies including:
@@ -177,7 +170,7 @@ Start by deploying the first version of the trail guide agent.
 1. Run the agent creation script:
 
     ```powershell
-    python trail_guide_agent.py
+    uv run --frozen python trail_guide_agent.py
     ```
 
     You should see output confirming the agent was created:
@@ -237,7 +230,7 @@ Next, deploy a second version with enhanced capabilities.
 1. Run the agent creation script:
 
      ```powershell
-     python trail_guide_agent.py
+     uv run --frozen python trail_guide_agent.py
      ```
 
     You should see output confirming the agent was created:
@@ -275,7 +268,7 @@ Finally, deploy the third version with production-ready features.
 1. Run the agent creation script:
 
     ```powershell
-    python trail_guide_agent.py
+    uv run --frozen python trail_guide_agent.py
     ```
 
     You should see output confirming the agent was created:
